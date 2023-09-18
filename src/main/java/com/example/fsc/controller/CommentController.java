@@ -22,4 +22,8 @@ public class CommentController {
        return commentService.postComment(post_id);
     }
 
+    @DeleteMapping("/comments/delete")
+    public ResponseEntity<Map<String,String>> commentDelete(@RequestParam("comment_id") Long comment_id){
+        return commentService.commentDelete(comment_id);
+    }
 }
