@@ -25,18 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
     private final CommentService commentService;
     @GetMapping("/comments")
-    public ResponseEntity<List<CommentViewDto>> commentView(@RequestParam("post_id") Long post_id){
-       return commentService.postComment(post_id);
+    public ResponseEntity<List<CommentViewDto>> commentView(@RequestBody Map<String,Long> post_id){
+        System.out.println(post_id.get("post_id"));
+       return commentService.postComment(post_id.get("post_id"));
     }
 
     @DeleteMapping("/comments/delete")
-    public ResponseEntity<Map<String,String>> commentDelete(@RequestParam("comment_id") Long comment_id){
-        return commentService.commentDelete(comment_id);
+    public ResponseEntity<Map<String,String>> commentDelete(@RequestBody Map<String,Long> comment_id){
+        return commentService.commentDelete(comment_id.get("comment_id"));
     }
-
-
-    private final CommentService commentService;
-
 
     /**
      * 2023-09-19

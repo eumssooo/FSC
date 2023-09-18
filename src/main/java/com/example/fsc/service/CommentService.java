@@ -4,10 +4,7 @@ import com.example.fsc.dto.CreateCommentDto;
 import com.example.fsc.entity.CommentEntity;
 import com.example.fsc.repository.CommentRepository;
 
-import com.example.fsc.dto.CommentDto;
 import com.example.fsc.dto.CommentViewDto;
-import com.example.fsc.entity.CommentEntity;
-import com.example.fsc.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,8 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.*;
 
 @Service
@@ -48,6 +43,7 @@ public class CommentService {
             return ResponseEntity.status(200).body(result);
         }else {
             result.put("message","댓글이 삭제안됨");
+
             return ResponseEntity.status(200).body(result);
         }
     }
