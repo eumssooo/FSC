@@ -33,6 +33,16 @@ public class CommentService {
         }
         return ResponseEntity.status(200).body(commentDtoList);
     }
-
-
+    public ResponseEntity<Map<String,String>> commentDelete(Long commentId) {
+        Map<String,String> result = new HashMap<>();
+        Optional<CommentEntity> deleteComment = commentRepository.findById(commentId);
+        if(deleteComment.isPresent()){
+            commentRepository.deleteById(commentId);
+            result.put("message","댓글이 정상적으로 삭제되었습니다.");
+            return ResponseEntity.status(200).body(result);
+        }else {
+            result.put("message","댓글이 삭제안됨");
+            return ResponseEntity.status(200).body(result);
+        }
+    }
 }
