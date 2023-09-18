@@ -1,5 +1,8 @@
 package com.example.fsc.service;
 
+import com.example.fsc.dto.CreateCommentDto;
+import com.example.fsc.entity.CommentEntity;
+import com.example.fsc.repository.CommentRepository;
 
 import com.example.fsc.dto.CommentDto;
 import com.example.fsc.dto.CommentViewDto;
@@ -8,6 +11,9 @@ import com.example.fsc.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
@@ -43,6 +49,35 @@ public class CommentService {
         }else {
             result.put("message","댓글이 삭제안됨");
             return ResponseEntity.status(200).body(result);
+        }
+    }
+
+
+
+
+
+    /**
+     * 2023-09-19
+     * 댓글 추가
+     * 작성자: 김대한
+     */
+    public ResponseEntity<Map<String, String>> commentSave(CreateCommentDto createCommentDto) {
+        CommentEntity commentEntity = CommentEntity.builder()
+                .author(createCommentDto.getAuthor())
+                .postId(createCommentDto.getPostId())
+                .content(createCommentDto.getContent())
+                .build();
+
+        Map<String, String> map = new HashMap<>();
+
+        Long result = commentRepository.save(commentEntity).getCommentId();
+        Optional<CommentEntity> findId = commentRepository.findById(result);
+        if (findId.isPresent()) {
+            map.put("message", "댓글이 성공적으로 작성되었습니다.");
+            return ResponseEntity.status(200).body(map);
+        } else {
+            map.put("message", "댓글 작성에 실패 하였습니다.");
+            return ResponseEntity.status(200).body(map);
         }
     }
 }
