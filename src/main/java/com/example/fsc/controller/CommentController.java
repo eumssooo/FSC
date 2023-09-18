@@ -4,6 +4,7 @@ package com.example.fsc.controller;
 
 import com.example.fsc.dto.CommentDto;
 import com.example.fsc.dto.CommentViewDto;
+import com.example.fsc.dto.UpdateCommentDto;
 import com.example.fsc.service.CommentService;
 import com.example.fsc.dto.CreateCommentDto;
 import com.example.fsc.service.CommentService;
@@ -43,5 +44,12 @@ public class CommentController {
     @PostMapping("/comments")
     public ResponseEntity<Map<String, String>> createComment(@RequestBody CreateCommentDto createCommentDto) {
         return commentService.commentSave(createCommentDto);
+    }
+
+
+    @PutMapping("/comments/{comment_id}")
+    public ResponseEntity<Map<String,String>> updateComment(@PathVariable Long comment_id ,
+                                                            @RequestBody UpdateCommentDto updateCommentDto){
+        return commentService.commentUpdate(updateCommentDto,comment_id);
     }
 }
