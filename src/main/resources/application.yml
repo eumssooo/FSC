@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: utf-8
+  error:
+    include-exception: false
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    #url: jdbc:mysql://
+    #username:
+    #password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
