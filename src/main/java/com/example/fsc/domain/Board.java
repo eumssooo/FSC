@@ -15,7 +15,7 @@ public class Board {
     @Column(name = "board_id")
     private Long boardId;
 
-//    private Long emailId;
+    private Long emailId;
 
     private String author;
 
