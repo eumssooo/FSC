@@ -14,12 +14,12 @@ import javax.persistence.*;
 @Table(name="member")
 public class MemberEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long email_id;
+    @Column(name="email_id")
+    private Long emailId;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 }
