@@ -10,6 +10,9 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -21,12 +24,15 @@ public class MemberController {
     //이메일로 회원가입하기
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> signup(@RequestBody MemberEntity memberEntity){
+    public ResponseEntity<Map<String, String>> signup(@RequestBody MemberEntity memberEntity){
+        Map<String,String> result = new HashMap<>();
         if(memberService.isEmailUnique((memberEntity.getEmail()))){
             memberService.signup(memberEntity);
-            return ResponseEntity.ok("회원가입이 완료되었습니다.");
+            result.put("message","회원가입이 완료되었습니다.");
+            return ResponseEntity.status(200).body(result);
         }else {
-            return ResponseEntity.badRequest().body("이미 가입된 이메일입니다.");
+            result.put("message","회원가입에 실패했습니다.");
+            return ResponseEntity.status(200).body(result);
         }
 
     }
