@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.RequestEntity.put;
@@ -36,6 +33,20 @@ public class BoardService {
         }
         return ResponseEntity.status(200).body(boardDTOList);
     }
+
+    public ResponseEntity<BoardDTO> findById(Long id){
+        Optional<Board> byId = boardRepository.findById(id);
+            Board board = byId.get();
+            BoardDTO boardDTO = BoardDTO.builder()
+                    .boardId(board.getBoardId())
+                    .emailId(board.getEmailId())
+                    .title(board.getTitle())
+                    .author(board.getAuthor())
+                    .content(board.getContent())
+                    .createdAt(board.getCreatedAt())
+                    .build();
+            return ResponseEntity.status(200).body(boardDTO);
+        }
 }
 
 
