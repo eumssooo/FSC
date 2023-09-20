@@ -47,6 +47,25 @@ public class BoardService {
                     .build();
             return ResponseEntity.status(200).body(boardDTO);
         }
+
+    public ResponseEntity<List<BoardDTO>> findBoardListByEmail(String email) {
+        List<Board> searchedBoardEntityList = boardRepository.findBoardsByAuthorContainingOrderByCreatedAtDesc(email);
+        List<BoardDTO> searchedBoardDtoList = new ArrayList<>();
+        // entity -> dto 변환 필요
+        for(Board board : searchedBoardEntityList) {
+            BoardDTO boardDTO = BoardDTO.builder()
+                    .boardId(board.getBoardId())
+                    .emailId(board.getEmailId())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .author(board.getAuthor())
+                    .createdAt(board.getCreatedAt())
+                    .build();
+            searchedBoardDtoList.add(boardDTO);
+        }
+        return ResponseEntity.status(200).body(searchedBoardDtoList);
+    }
+
 }
 
 
