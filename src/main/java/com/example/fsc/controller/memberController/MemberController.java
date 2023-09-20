@@ -25,8 +25,11 @@ public class MemberController {
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Map<String, String>> signup(@RequestBody MemberEntity memberEntity){
+        System.out.println(memberEntity.getEmail());
+        System.out.println(memberEntity.getPassword());
         Map<String,String> result = new HashMap<>();
         if(memberService.isEmailUnique((memberEntity.getEmail()))){
+
             memberService.signup(memberEntity);
             result.put("message","회원가입이 완료되었습니다.");
             return ResponseEntity.status(200).body(result);
