@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -100,6 +101,30 @@ public class BoardService {
         }
         return ResponseEntity.status(200).body(map);
     }
+
+
+    public ResponseEntity<Map<String, String>> saveBoard(BoardDTO boardDTO) {
+
+        // dto -> entity 변환
+        Board board = Board.builder().
+                author(boardDTO.getAuthor())
+                .title(boardDTO.getTitle())
+                .content(boardDTO.getContent())
+                .emailId(boardDTO.getEmailId())
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        Map<String, String> map = new HashMap<>();
+        Long boardId = boardRepository.save(board).getBoardId();
+        Optional<Board> findId = boardRepository.findById(boardId);
+        if(findId.isPresent()){
+            map.put("message", "게시물이 성공적으로 작성되었습니다.");
+        } else {
+            map.put("message", "게시물 작성에 실패하였습니다.");
+        }
+        return ResponseEntity.status(200).body(map);
+    }
+
 
 
 

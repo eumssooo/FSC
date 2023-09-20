@@ -47,4 +47,11 @@ public class BoardController {
         return boardService.updateBoard(updateBoardDto, board_id);
     }
 
+    @PostMapping("/posts")
+    public ResponseEntity<Map<String, String>> createArticle (@RequestBody BoardDTO boardDTO){
+        return boardService.saveBoard(boardDTO);
+    }
+
+
+
 }
