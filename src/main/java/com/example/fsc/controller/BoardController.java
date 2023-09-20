@@ -23,6 +23,11 @@ public class BoardController {
         return boardService.findAll();
     }
 
+    //게시물 상세 조회
+    @GetMapping("/posts/{board_id}")
+    public ResponseEntity<BoardDTO> findById(@PathVariable Long board_id){
+        return boardService.findById(board_id);
+    }
 
     @GetMapping("/posts/search")
     public ResponseEntity<List<BoardDTO>> searchArticleListByEmail (@RequestParam String author){
