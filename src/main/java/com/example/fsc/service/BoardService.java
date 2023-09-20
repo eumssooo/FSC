@@ -66,6 +66,21 @@ public class BoardService {
         return ResponseEntity.status(200).body(searchedBoardDtoList);
     }
 
+        public ResponseEntity<Map<String ,String>> deleteBoard(Long boardId) {
+
+        Map<String,String> deleteMap= new HashMap<>();
+        boardRepository.deleteById(boardId);
+        Optional<Board> byId = boardRepository.findById(boardId);
+        if (!byId.isPresent()){
+            deleteMap.put("message" ," 게시물이 성공적으로 삭제되었습니다.");
+        }else{
+            deleteMap.put("message", "게시물이 삭제 되지 않았습니다.");
+        }
+        return ResponseEntity.status(200).body(deleteMap);
+        }
+
+
+
 }
 
 

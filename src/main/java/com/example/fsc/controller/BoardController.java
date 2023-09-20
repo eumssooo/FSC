@@ -34,6 +34,8 @@ public class BoardController {
         return boardService.findBoardListByEmail(author);
     }
 
-
-
+    @DeleteMapping("/posts/delete")
+    public ResponseEntity<Map<String ,String>> deleteBoard(@RequestParam Long boardId){
+        return boardService.deleteBoard(boardId);
+    }
 }
