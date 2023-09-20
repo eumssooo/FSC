@@ -1,6 +1,6 @@
 package com.example.fsc.controller;
 
-import com.example.fsc.dto.BoardDTO;
+import com.example.fsc.dto.BoardDto;
 import com.example.fsc.dto.UpdateBoardDto;
 import com.example.fsc.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -20,18 +20,18 @@ public class BoardController {
 
     //게시물 전체 조회
     @GetMapping( "/posts")
-    public ResponseEntity<List<BoardDTO>> findAll(){
+    public ResponseEntity<List<BoardDto>> findAll(){
         return boardService.findAll();
     }
 
     //게시물 상세 조회
-    @GetMapping("/posts/{board_id}")
-    public ResponseEntity<BoardDTO> findById(@PathVariable Long board_id){
-        return boardService.findById(board_id);
+    @GetMapping("/posts/{boardId}")
+    public ResponseEntity<BoardDto> findById(@PathVariable Long boardId){
+        return boardService.findById(boardId);
     }
 
     @GetMapping("/posts/search")
-    public ResponseEntity<List<BoardDTO>> searchArticleListByEmail (@RequestParam String author){
+    public ResponseEntity<List<BoardDto>> searchBoardListByEmail (@RequestParam String author){
         return boardService.findBoardListByEmail(author);
     }
 
@@ -41,14 +41,14 @@ public class BoardController {
     }
 
     // 게시물 수정
-    @PutMapping("/posts/{board_id}")
-    public ResponseEntity<Map<String, String>> modifyArticle (@PathVariable Long board_id,
+    @PutMapping("/posts/{boardId}")
+    public ResponseEntity<Map<String, String>> modifyBoard (@PathVariable Long boardId,
                                                               @RequestBody UpdateBoardDto updateBoardDto){
-        return boardService.updateBoard(updateBoardDto, board_id);
+        return boardService.updateBoard(updateBoardDto, boardId);
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<Map<String, String>> createArticle (@RequestBody BoardDTO boardDTO){
+    public ResponseEntity<Map<String, String>> createBoard (@RequestBody BoardDto boardDTO){
         return boardService.saveBoard(boardDTO);
     }
 

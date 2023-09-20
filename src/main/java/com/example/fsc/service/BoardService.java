@@ -1,7 +1,7 @@
 package com.example.fsc.service;
 
 import com.example.fsc.domain.Board;
-import com.example.fsc.dto.BoardDTO;
+import com.example.fsc.dto.BoardDto;
 import com.example.fsc.dto.UpdateBoardDto;
 import com.example.fsc.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.RequestEntity.put;
 
@@ -19,11 +18,11 @@ import static org.springframework.http.RequestEntity.put;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public ResponseEntity<List<BoardDTO>> findAll() {
+    public ResponseEntity<List<BoardDto>> findAll() {
         List<Board> boardList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
+        List<BoardDto> boardDTOList = new ArrayList<>();
         for (Board board : boardList) {
-            BoardDTO boardDTO = BoardDTO.builder()
+            BoardDto boardDTO = BoardDto.builder()
                     .boardId(board.getBoardId())
                     .title(board.getTitle())
                     .content(board.getContent())
@@ -36,10 +35,10 @@ public class BoardService {
         return ResponseEntity.status(200).body(boardDTOList);
     }
 
-    public ResponseEntity<BoardDTO> findById(Long id){
+    public ResponseEntity<BoardDto> findById(Long id){
         Optional<Board> byId = boardRepository.findById(id);
             Board board = byId.get();
-            BoardDTO boardDTO = BoardDTO.builder()
+            BoardDto boardDTO = BoardDto.builder()
                     .boardId(board.getBoardId())
                     .emailId(board.getEmailId())
                     .title(board.getTitle())
@@ -50,12 +49,12 @@ public class BoardService {
             return ResponseEntity.status(200).body(boardDTO);
         }
 
-    public ResponseEntity<List<BoardDTO>> findBoardListByEmail(String email) {
+    public ResponseEntity<List<BoardDto>> findBoardListByEmail(String email) {
         List<Board> searchedBoardEntityList = boardRepository.findBoardsByAuthorContainingOrderByCreatedAtDesc(email);
-        List<BoardDTO> searchedBoardDtoList = new ArrayList<>();
+        List<BoardDto> searchedBoardDtoList = new ArrayList<>();
 
         for(Board board : searchedBoardEntityList) {
-            BoardDTO boardDTO = BoardDTO.builder()
+            BoardDto boardDTO = BoardDto.builder()
                     .boardId(board.getBoardId())
                     .emailId(board.getEmailId())
                     .title(board.getTitle())
@@ -103,7 +102,7 @@ public class BoardService {
     }
 
 
-    public ResponseEntity<Map<String, String>> saveBoard(BoardDTO boardDTO) {
+    public ResponseEntity<Map<String, String>> saveBoard(BoardDto boardDTO) {
 
         // dto -> entity 변환
         Board board = Board.builder().

@@ -1,6 +1,5 @@
 package com.example.fsc.dto;
 
-import com.example.fsc.domain.Board;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -8,7 +7,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BoardDTO {
+public class BoardDto {
 
     private Long boardId;
 
@@ -23,7 +22,7 @@ public class BoardDTO {
     private LocalDateTime createdAt;
 
     @Builder
-    public BoardDTO(Long boardId, Long emailId, String author, String title, String content, LocalDateTime createdAt) {
+    public BoardDto(Long boardId, Long emailId, String author, String title, String content, LocalDateTime createdAt) {
         this.boardId = boardId;
         this.emailId = emailId;
         this.author = author;
