@@ -16,7 +16,7 @@ public class Board {
     @Id @GeneratedValue
     @Column(name = "board_id")
     private Long boardId;
-
+    @Column(name = "email_id")
     private Long emailId;
 
     private String author;
