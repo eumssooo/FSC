@@ -51,7 +51,7 @@ public class BoardService {
     public ResponseEntity<List<BoardDTO>> findBoardListByEmail(String email) {
         List<Board> searchedBoardEntityList = boardRepository.findBoardsByAuthorContainingOrderByCreatedAtDesc(email);
         List<BoardDTO> searchedBoardDtoList = new ArrayList<>();
-        // entity -> dto 변환 필요
+
         for(Board board : searchedBoardEntityList) {
             BoardDTO boardDTO = BoardDTO.builder()
                     .boardId(board.getBoardId())
