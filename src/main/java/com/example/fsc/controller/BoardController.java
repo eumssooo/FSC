@@ -1,6 +1,5 @@
 package com.example.fsc.controller;
 
-import com.example.fsc.domain.Board;
 import com.example.fsc.dto.BoardDTO;
 import com.example.fsc.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +21,6 @@ public class BoardController {
     @GetMapping( "/posts")
     public ResponseEntity<List<BoardDTO>> findAll(){
         return boardService.findAll();
-    }
-    //게시물 조회
-    @GetMapping("/posts/{board_id}")
-    public ResponseEntity<BoardDTO> findById(@PathVariable Long board_id){
-        return boardService.findById(board_id);
     }
 
 
