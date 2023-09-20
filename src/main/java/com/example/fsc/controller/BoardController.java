@@ -1,6 +1,7 @@
 package com.example.fsc.controller;
 
 import com.example.fsc.dto.BoardDTO;
+import com.example.fsc.dto.UpdateBoardDto;
 import com.example.fsc.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,4 +39,12 @@ public class BoardController {
     public ResponseEntity<Map<String ,String>> deleteBoard(@RequestParam Long boardId){
         return boardService.deleteBoard(boardId);
     }
+
+    // 게시물 수정
+    @PutMapping("/posts/{board_id}")
+    public ResponseEntity<Map<String, String>> modifyArticle (@PathVariable Long board_id,
+                                                              @RequestBody UpdateBoardDto updateBoardDto){
+        return boardService.updateBoard(updateBoardDto, board_id);
+    }
+
 }
