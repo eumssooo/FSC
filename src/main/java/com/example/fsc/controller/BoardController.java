@@ -17,17 +17,17 @@ import java.util.Map;
 public class BoardController {
     private final BoardService boardService;
 
-//    @PostMapping("/posts")
-//    public ResponseEntity<Map<String, String>> createArticle (@RequestBody BoardDTO boardDTO){
-//        return boardService.saveBoard(boardDTO);
-//    }
-//
-//
-//    @PutMapping("/posts/{board_id}")
-//    public ResponseEntity<Map<String, String>> modifyArticle (@PathVariable Long board_id,
-//            @RequestBody UpdateBoardDto updateBoardDto){
-//        return boardService.updateBoard(updateBoardDto, board_id);
-//    }
+    @PostMapping("/posts")
+    public ResponseEntity<Map<String, String>> createArticle (@RequestBody BoardDTO boardDTO){
+        return boardService.saveBoard(boardDTO);
+    }
+
+
+    @PutMapping("/posts/{board_id}")
+    public ResponseEntity<Map<String, String>> modifyArticle (@PathVariable Long board_id,
+            @RequestBody UpdateBoardDto updateBoardDto){
+        return boardService.updateBoard(updateBoardDto, board_id);
+    }
 
     @GetMapping("/posts/search")
     public ResponseEntity<List<BoardDTO>> searchArticleListByEmail (@RequestParam String author){
