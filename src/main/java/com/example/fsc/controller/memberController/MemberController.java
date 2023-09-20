@@ -3,6 +3,7 @@ package com.example.fsc.controller.memberController;
 
 import com.example.fsc.entity.memberEntity.MemberEntity;
 import com.example.fsc.service.MemberService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
