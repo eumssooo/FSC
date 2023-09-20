@@ -23,4 +23,12 @@ public class BoardController {
         return boardService.findAll();
     }
 
+
+    @GetMapping("/posts/search")
+    public ResponseEntity<List<BoardDTO>> searchArticleListByEmail (@RequestParam String author){
+        return boardService.findBoardListByEmail(author);
+    }
+
+
+
 }
