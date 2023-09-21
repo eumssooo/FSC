@@ -1,4 +1,4 @@
-package com.example.fsc.dto;
+package com.example.fsc.dto.boardDto;
 
 import lombok.*;
 
