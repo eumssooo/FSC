@@ -28,9 +28,9 @@ public class CommentController {
 
 
     @GetMapping("/comments")
-    public ResponseEntity<List<CommentViewDto>> commentView(@RequestBody Map<String,Long> post_id){
-        System.out.println(post_id.get("post_id"));
-       return commentService.postComment(post_id.get("post_id"));
+    public ResponseEntity<List<CommentViewDto>> commentView(@RequestBody Map<String,Long> board_id){
+        System.out.println(board_id.get("board_id"));
+       return commentService.postComment(board_id.get("board_id"));
     }
 
 

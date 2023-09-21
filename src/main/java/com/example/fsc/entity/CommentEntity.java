@@ -14,6 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "comment")
 public class CommentEntity {
 
     @Id
@@ -21,7 +22,7 @@ public class CommentEntity {
     @Column(name = "comment_id")
     private Long commentId;
 
-    private Long postId;
+    private Long boardId;
     private Long emailId;
 
     private String content;
@@ -35,9 +36,9 @@ public class CommentEntity {
      * 작성자: 김대한
      */
     @Builder
-    public CommentEntity(Long commentId, Long postId, Long emailId, String content, String author, Date createdAt) {
+    public CommentEntity(Long commentId, Long boardId, Long emailId, String content, String author, Date createdAt) {
         this.commentId = commentId;
-        this.postId = postId;
+        this.boardId = boardId;
         this.emailId = emailId;
         this.content = content;
         this.author = author;

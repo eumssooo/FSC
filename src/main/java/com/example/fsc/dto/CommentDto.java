@@ -13,7 +13,7 @@ public class CommentDto {
 
     private Long commentId;
 
-    private Long postId;
+    private Long boardId;
     private Long emailId;
 
     private String content;

@@ -8,16 +8,16 @@ import java.util.Date;
 @NoArgsConstructor
 public class CommentViewDto {
     private Long commentId;
-    private Long postId;
+    private Long boardId;
     private String content;
     private String author;
     private Date createAt;
 
 
     @Builder
-    public CommentViewDto(Long commentId, Long postId, String content, String author , Date createAt){
+    public CommentViewDto(Long commentId, Long boardId, String content, String author , Date createAt){
         this.commentId = commentId;
-        this.postId = postId;
+        this.boardId = boardId;
         this.content = content;
         this.author = author;
         this.createAt = createAt;

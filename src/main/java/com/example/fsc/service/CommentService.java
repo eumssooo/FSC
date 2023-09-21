@@ -16,15 +16,15 @@ import java.util.*;
 public class CommentService {
     private final CommentRepository commentRepository;
 
-    public ResponseEntity<List<CommentViewDto>> postComment(Long post_id) {
-        List<CommentEntity> commentEntityList = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
+    public ResponseEntity<List<CommentViewDto>> postComment(Long board_id) {
+        List<CommentEntity> commentEntityList = commentRepository.findByBoardIdOrderByCreatedAtAsc(board_id);
         List<CommentViewDto> commentDtoList = new ArrayList<>();
         for (CommentEntity comment : commentEntityList) {
             CommentViewDto dto = CommentViewDto.builder()
                     .commentId(comment.getCommentId())
                     .content(comment.getContent())
                     .author(comment.getAuthor())
-                    .postId(comment.getPostId())
+                    .boardId(comment.getBoardId())
                     .createAt(comment.getCreatedAt())
                     .build();
             commentDtoList.add(dto);
@@ -46,7 +46,6 @@ public class CommentService {
         }
     }
 
-
     /**
      * 2023-09-19
      * 댓글 추가
@@ -56,7 +55,7 @@ public class CommentService {
         // dto -> Entity로 전환
         CommentEntity commentEntity = CommentEntity.builder()
                 .author(createCommentDto.getAuthor())
-                .postId(createCommentDto.getPostId())
+                .boardId(createCommentDto.getBoardId())
                 .content(createCommentDto.getContent())
                 .build();
 

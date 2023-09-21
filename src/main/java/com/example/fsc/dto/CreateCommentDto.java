@@ -15,7 +15,7 @@ public class CreateCommentDto {
      * 댓글 추가
      * 작성자: 김대한
      */
-    private Long postId;
+    private Long boardId;
 
     private String content;
     private String author;
