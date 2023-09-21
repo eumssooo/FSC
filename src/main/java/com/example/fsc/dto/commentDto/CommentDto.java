@@ -1,10 +1,9 @@
-package com.example.fsc.dto;
+package com.example.fsc.dto.commentDto;
 
 
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
