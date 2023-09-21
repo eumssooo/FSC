@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity (name = "comment")
@@ -28,7 +29,7 @@ public class CommentEntity {
     private String content;
     private String author;
 
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     /**
      * 2023-09-19
@@ -36,7 +37,7 @@ public class CommentEntity {
      * 작성자: 김대한
      */
     @Builder
-    public CommentEntity(Long commentId, Long boardId, Long emailId, String content, String author, Date createdAt) {
+    public CommentEntity(Long commentId, Long boardId, Long emailId, String content, String author, LocalDateTime createdAt) {
         this.commentId = commentId;
         this.boardId = boardId;
         this.emailId = emailId;

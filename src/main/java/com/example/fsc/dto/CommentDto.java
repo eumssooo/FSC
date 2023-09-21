@@ -3,6 +3,7 @@ package com.example.fsc.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -19,6 +20,6 @@ public class CommentDto {
     private String content;
     private String author;
 
-    private Date createAt;
+    private LocalDateTime createAt;
 
 }

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -57,6 +58,7 @@ public class CommentService {
                 .author(createCommentDto.getAuthor())
                 .boardId(createCommentDto.getBoardId())
                 .content(createCommentDto.getContent())
+                .createdAt(LocalDateTime.now())
                 .build();
 
         Map<String, String> map = new HashMap<>();
