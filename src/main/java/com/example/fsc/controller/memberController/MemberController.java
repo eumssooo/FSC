@@ -47,9 +47,9 @@ public class MemberController {
 
     //로그아웃
     @PostMapping("/logout")
-    @ResponseStatus(HttpStatus.OK)
-   public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse, @RequestHeader(value = "loginUser", required = false) String token){
-        return memberService.logout(memberEntity,httpServletResponse,token);
+        public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse, @RequestHeader(value = "loginUser", required = false) String token){
+            return memberService.logout(memberEntity,httpServletResponse,token);
     }
+
 
 }
