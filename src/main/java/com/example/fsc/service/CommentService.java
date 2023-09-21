@@ -2,8 +2,8 @@ package com.example.fsc.service;
 
 import com.example.fsc.dto.commentDto.CommentViewDto;
 import com.example.fsc.dto.commentDto.CreateCommentDto;
-import com.example.fsc.entity.boardEntity.BoardEntity;
-import com.example.fsc.entity.commentEntity.CommentEntity;
+import com.example.fsc.entity.BoardEntity;
+import com.example.fsc.entity.CommentEntity;
 import com.example.fsc.repository.BoardRepository;
 import com.example.fsc.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;

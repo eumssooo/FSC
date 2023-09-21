@@ -1,4 +1,4 @@
-package com.example.fsc.dto.boardDto;
+package com.example.fsc.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

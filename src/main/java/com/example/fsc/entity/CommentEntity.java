@@ -1,7 +1,6 @@
-package com.example.fsc.entity.commentEntity;
+package com.example.fsc.entity;
 
-
-import com.example.fsc.entity.boardEntity.BoardEntity;
+import com.example.fsc.entity.BoardEntity;
 import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
