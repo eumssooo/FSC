@@ -20,39 +20,34 @@ public class SecurityConfiguration {
     private JwtTokenProvider jwtTokenProvider;
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http.headers().frameOptions().sameOrigin()
-//                .and()
-//                //.authorizeRequests()
-//                //.antMatchers("/api/**").permitAll() // 로그인 페이지에 대한 접근 허용
-//                //.anyRequest().authenticated() // 그 외 모든 요청은 인증이 필요
-//                //.and()
-//                .formLogin().disable()
-//                //.loginPage("/login").permitAll().and()
-//                //.logout().logoutUrl("/logout").permitAll().and()
-//                .csrf().disable()
-//                .httpBasic().disable()
-//                .rememberMe().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                //.and().exceptionHandling().authenticationEntryPoint(new FailedPoint());
-
-        http
-                .httpBasic().disable()
+        http.headers().frameOptions().sameOrigin()
+                .and()
+                .formLogin().disable()
                 .csrf().disable()
-                .cors().and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/login", "/api/signup").permitAll()
-                .anyRequest().hasRole("USER")
-                .and()
-                .exceptionHandling()
-                .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-
+                .httpBasic().disable()
+                .rememberMe().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return  http.build();
-    }
+                //.and().exceptionHandling().authenticationEntryPoint(new FailedPoint());
 
+//        http
+//                .httpBasic().disable()
+//                .csrf().disable()
+//                .cors().and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/api/login", "/api/signup").permitAll()
+//                .anyRequest().hasRole("USER")
+//                .and()
+//                .exceptionHandling()
+//                .and()
+//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+//
+
+    }
+//
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
