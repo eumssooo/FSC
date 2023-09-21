@@ -46,16 +46,11 @@ public class MemberController {
         return memberService.login(memberEntity,httpServletResponse);
     }
 
-    @GetMapping("/asd")
-    public ResponseEntity<String> asd(HttpServletRequest request){
-        String header = request.getHeader("loginUser");
-        String email = memberService.showToken(header);
-        System.out.println(email);
-        return null;
+
+    //로그아웃
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
+   public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse){
+        return memberService.logout(memberEntity,httpServletResponse);
     }
-//
-//    //로그아웃
-//    @PostMapping("/logout")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<Map<String, String >> login(@RequestBody MemberEntity memberEntity)
 }
