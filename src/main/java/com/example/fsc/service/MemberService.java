@@ -7,7 +7,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ import java.util.Map;
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
-    //private final TokenDTO tokenDTO;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -55,16 +53,6 @@ public class MemberService {
         return memberEntity==null;
     }
 
-//    public String generateToken(MemberEntity memberEntity){
-//        System.out.println(memberEntity.getEmailId());
-//        String jwt = Jwts.builder()
-//                .setSubject("loginUser")
-//                .claim("emailId",memberEntity.getEmailId())
-//                .claim("email",memberEntity.getEmail())
-//                .compact();
-//        return jwt;
-//    }
-
     public ResponseEntity<Map<String, String>> login(MemberEntity memberEntity, HttpServletResponse httpServletResponse) {
         //아이디 비밀번호 확인하기
         if(findByEmailAndPassword(memberEntity.getEmail(),memberEntity.getPassword())
@@ -76,13 +64,11 @@ public class MemberService {
             httpServletResponse.addHeader("loginUser",jwt);
             Map<String,String > map = new HashMap<>();
             map.put("message","로그인이 성공적으로 완료되었습니다.");
-            showToken(jwt);
             return ResponseEntity.status(200).body(map);
         }else {
             //아닐때
             System.out.println("로그인실패");
         }
-        System.out.println(4444);
         return null;
     }
 
@@ -115,12 +101,12 @@ public class MemberService {
         return loginInfo;
     }
 
-    public ResponseEntity<Map<String, String>> logout(MemberEntity memberEntity, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<Map<String, String>> logout(MemberEntity memberEntity, HttpServletResponse httpServletResponse, String token) {
+        System.out.println(token);
+
         httpServletResponse.setHeader(null,null);
         Map<String,String > map = new HashMap<>();
         map.put("message","로그아웃 되었습니다.");
         return ResponseEntity.status(200).body(map);
-
-
     }
 }
