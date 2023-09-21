@@ -90,8 +90,8 @@ public class MemberService {
         Claims claims = Jwts.parser()
                .parseClaimsJwt(token)
                .getBody();
-        Long emailId = claims.get("emailId", Long.class); // 올바른 방법
-        String email = (String) claims.get("email");
+        Long emailId = claims.get("emailId", Long.class);
+        String email = claims.get("email", String.class);
         System.out.println("emailId : " +emailId);
         System.out.println("email : "+email);
         Map<String ,String> loginInfo = new HashMap<>();
