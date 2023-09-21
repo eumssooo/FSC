@@ -1,4 +1,4 @@
-package com.example.fsc.dto;
+package com.example.fsc.dto.commentDto;
 
 
 import lombok.AllArgsConstructor;
@@ -15,11 +15,6 @@ public class CreateCommentDto {
      * 댓글 추가
      * 작성자: 김대한
      */
-    private Long boardId;
-
+    private Long board_id;
     private String content;
-    private String author;
-
-
-
 }
