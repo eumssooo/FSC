@@ -1,7 +1,7 @@
 package com.example.fsc.controller;
 
-import com.example.fsc.dto.BoardDto;
-import com.example.fsc.dto.UpdateBoardDto;
+import com.example.fsc.dto.boardDto.BoardDto;
+import com.example.fsc.dto.boardDto.UpdateBoardDto;
 import com.example.fsc.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

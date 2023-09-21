@@ -102,12 +102,17 @@ public class MemberService {
         System.out.println("emailId : " +emailId);
         System.out.println("email : "+email);
         Map<String ,String> loginInfo = new HashMap<>();
-        loginInfo.put("emailId",email);
-        loginInfo.put("email",email); return loginInfo;}
-        else {
-            return null;
-        }
+// <<<<<<< feature1/Comment
+//         loginInfo.put("emailId", String.valueOf(emailId));
+//         loginInfo.put("email",email);
+// =======
+//         loginInfo.put("emailId",email);
+//         loginInfo.put("email",email); return loginInfo;}
+//         else {
+//             return null;
+//         }
 
+// >>>>>>> dev
 
     }
 

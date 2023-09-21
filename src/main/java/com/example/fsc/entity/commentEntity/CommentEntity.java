@@ -1,6 +1,7 @@
-package com.example.fsc.entity;
+package com.example.fsc.entity.commentEntity;
 
 
+import com.example.fsc.entity.boardEntity.BoardEntity;
 import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity (name = "comment")
@@ -21,14 +23,18 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long commentId;
-
-    private Long boardId;
+    @Column(name = "email_id")
     private Long emailId;
-
+    @Column(name = "content")
     private String content;
+    @Column(name = "author")
     private String author;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    private Date createdAt;
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private BoardEntity boardEntity;
 
     /**
      * 2023-09-19
@@ -36,12 +42,12 @@ public class CommentEntity {
      * 작성자: 김대한
      */
     @Builder
-    public CommentEntity(Long commentId, Long boardId, Long emailId, String content, String author, Date createdAt) {
+    public CommentEntity(Long commentId, Long emailId, String content, String author, LocalDateTime createdAt , BoardEntity boardEntity) {
         this.commentId = commentId;
-        this.boardId = boardId;
         this.emailId = emailId;
         this.content = content;
         this.author = author;
         this.createdAt = createdAt;
+        this.boardEntity = boardEntity;
     }
 }

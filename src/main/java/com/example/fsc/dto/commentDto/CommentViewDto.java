@@ -1,7 +1,8 @@
-package com.example.fsc.dto;
+package com.example.fsc.dto.commentDto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 @Getter
 @Setter
@@ -11,11 +12,11 @@ public class CommentViewDto {
     private Long boardId;
     private String content;
     private String author;
-    private Date createAt;
+    private LocalDateTime createAt;
 
 
     @Builder
-    public CommentViewDto(Long commentId, Long boardId, String content, String author , Date createAt){
+    public CommentViewDto(Long commentId, Long boardId, String content, String author , LocalDateTime createAt){
         this.commentId = commentId;
         this.boardId = boardId;
         this.content = content;
