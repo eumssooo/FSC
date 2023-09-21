@@ -4,8 +4,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.RequiredArgsConstructor;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.tokens.Token;
 
@@ -15,7 +16,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
+    //private final CustomUserDetailsService customUserDetailsService;
 
     public String create(Long emailId, String email){
         //한시간 만료 시간 설정
@@ -30,20 +33,20 @@ public class JwtTokenProvider {
         return jwt;
     }
 
-//    public boolean validate(String token){
-//
-//        try {
-//            Jws<Claims> claimsJws = Jwts.parser().parseClaimsJws(token);
-//            return !claimsJws.getBody().getExpiration().before(new Date());
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+    public boolean validate(String token){
 
-//    public String resolveToken(HttpServletRequest request){
-//        return request.getHeader("loginUser");
-//    }
+        try {
+            Jws<Claims> claimsJws = Jwts.parser().parseClaimsJws(token);
+            return !claimsJws.getBody().getExpiration().before(new Date());
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String resolveToken(HttpServletRequest request){
+        return request.getHeader("loginUser");
+    }
 
 //    public Authentication getAutnetication(String token) {
 //        Claims claims = parseClaims(token);
@@ -51,11 +54,11 @@ public class JwtTokenProvider {
 //        return  null;
 //    }
 
-//    private Claims parseClaims(String token) {
-//        try{
-//            return Jwts.parser().parseClaimsJws(token).getBody();
-//        }catch (ExpiredJwtException e){
-//            return e.getClaims();
-//        }
-//    }
+    private Claims parseClaims(String token) {
+        try{
+            return Jwts.parser().parseClaimsJws(token).getBody();
+        }catch (ExpiredJwtException e){
+            return e.getClaims();
+        }
+    }
 }

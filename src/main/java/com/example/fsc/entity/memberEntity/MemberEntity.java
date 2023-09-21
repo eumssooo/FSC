@@ -24,7 +24,7 @@ public class MemberEntity {
     @Column(nullable = false)
     private String password;
 
-    public void setPassword(String rawPassword, PasswordEncoder passwordEncoder){
-        this.password = passwordEncoder.encode(rawPassword);
-    }
+//    public void setPassword(String rawPassword, PasswordEncoder passwordEncoder){
+//        this.password = passwordEncoder.encode(rawPassword);
+//    }
 }
