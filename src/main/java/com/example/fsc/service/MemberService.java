@@ -7,22 +7,29 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
 
     //회원가입
     public ResponseEntity<Map<String, String>> signup(MemberEntity memberEntity){
@@ -30,12 +37,12 @@ public class MemberService {
         //중복 이메일 확인
         if(isEmailUnique(memberEntity.getEmail())){
             //비밀번호 암호화(sha-256)
-            String encryptedPassword = passwordEncoder.encode(memberEntity.getPassword());
-
+            //String encryptedPassword = passwordEncoder.encode(memberEntity.getPassword());
+            String password = memberEntity.getPassword();
             //회원 정보 저장
             MemberEntity registerMemberEntity = new MemberEntity();
             registerMemberEntity.setEmail(memberEntity.getEmail());
-            registerMemberEntity.setPassword(encryptedPassword);
+            registerMemberEntity.setPassword(password);
 
 
             memberRepository.save(registerMemberEntity);
@@ -75,7 +82,7 @@ public class MemberService {
     public boolean findByEmailAndPassword (String email, String password){
         MemberEntity memberEntity = memberRepository.findByEmail(email);
         if(memberEntity!=null){
-            return passwordEncoder.matches(password,memberEntity.getPassword());
+            return password.equals(memberEntity.getPassword());
         }
         return false;
     }
@@ -86,7 +93,7 @@ public class MemberService {
     }
 
     public Map<String, String> showToken(String token){
-
+        if(token!=null){
         Claims claims = Jwts.parser()
                .parseClaimsJwt(token)
                .getBody();
@@ -95,18 +102,36 @@ public class MemberService {
         System.out.println("emailId : " +emailId);
         System.out.println("email : "+email);
         Map<String ,String> loginInfo = new HashMap<>();
-        loginInfo.put("emailId", String.valueOf(emailId));
-        loginInfo.put("email",email);
+// <<<<<<< feature1/Comment
+//         loginInfo.put("emailId", String.valueOf(emailId));
+//         loginInfo.put("email",email);
+// =======
+//         loginInfo.put("emailId",email);
+//         loginInfo.put("email",email); return loginInfo;}
+//         else {
+//             return null;
+//         }
 
-        return loginInfo;
+// >>>>>>> dev
+
     }
 
     public ResponseEntity<Map<String, String>> logout(MemberEntity memberEntity, HttpServletResponse httpServletResponse, String token) {
-        System.out.println(token);
+        Optional<String > tokenOptional = Optional.ofNullable(token);
+        if(tokenOptional.isPresent()){
+//            String exToken = tokenOptional.get();
+//            System.out.println(exToken);
+            httpServletResponse.setHeader(null,null);
+            Map<String,String > map = new HashMap<>();
+            map.put("message","로그아웃 되었습니다.");
+            return ResponseEntity.status(200).body(map);
+        }else{
+//            System.out.println("로그인 하지 않았습니다.");
+            Map<String,String > map = new HashMap<>();
+            map.put("message","로그인 한 사용자가 아닙니다.");
+            return ResponseEntity.status(200).body(map);
+        }
 
-        httpServletResponse.setHeader(null,null);
-        Map<String,String > map = new HashMap<>();
-        map.put("message","로그아웃 되었습니다.");
-        return ResponseEntity.status(200).body(map);
+
     }
 }

@@ -4,6 +4,7 @@ package com.example.fsc.controller.memberController;
 import com.example.fsc.entity.memberEntity.MemberEntity;
 import com.example.fsc.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,14 +48,8 @@ public class MemberController {
     //로그아웃
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)
-   public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse, @RequestHeader("loginUser") String token){
+   public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse, @RequestHeader(value = "loginUser", required = false) String token){
         return memberService.logout(memberEntity,httpServletResponse,token);
-    }
-
-    @GetMapping("/test")
-    @ResponseBody
-    String string(){
-        return "TestTestTest";
     }
 
 }
