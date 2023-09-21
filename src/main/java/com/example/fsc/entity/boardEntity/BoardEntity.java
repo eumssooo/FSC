@@ -1,4 +1,4 @@
-package com.example.fsc.domain;
+package com.example.fsc.entity.boardEntity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @Table(name = "board")
 @NoArgsConstructor
-public class Board {
+public class BoardEntity {
 
     @Id @GeneratedValue
     @Column(name = "board_id")
@@ -31,7 +31,7 @@ public class Board {
     private LocalDateTime createdAt;
 
     @Builder
-    public Board(Long boardId, Long emailId, String author, String title, String content, LocalDateTime createdAt) {
+    public BoardEntity(Long boardId, Long emailId, String author, String title, String content, LocalDateTime createdAt) {
         this.boardId = boardId;
         this.emailId = emailId;
         this.author = author;
