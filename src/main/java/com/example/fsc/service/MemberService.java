@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -92,7 +93,7 @@ public class MemberService {
     }
 
     public Map<String, String> showToken(String token){
-
+        if(token!=null){
         Claims claims = Jwts.parser()
                .parseClaimsJwt(token)
                .getBody();
@@ -102,17 +103,30 @@ public class MemberService {
         System.out.println("email : "+email);
         Map<String ,String> loginInfo = new HashMap<>();
         loginInfo.put("emailId",email);
-        loginInfo.put("email",email);
+        loginInfo.put("email",email); return loginInfo;}
+        else {
+            return null;
+        }
 
-        return loginInfo;
+
     }
 
     public ResponseEntity<Map<String, String>> logout(MemberEntity memberEntity, HttpServletResponse httpServletResponse, String token) {
-        System.out.println(token);
+        Optional<String > tokenOptional = Optional.ofNullable(token);
+        if(tokenOptional.isPresent()){
+//            String exToken = tokenOptional.get();
+//            System.out.println(exToken);
+            httpServletResponse.setHeader(null,null);
+            Map<String,String > map = new HashMap<>();
+            map.put("message","로그아웃 되었습니다.");
+            return ResponseEntity.status(200).body(map);
+        }else{
+//            System.out.println("로그인 하지 않았습니다.");
+            Map<String,String > map = new HashMap<>();
+            map.put("message","로그인 한 사용자가 아닙니다.");
+            return ResponseEntity.status(200).body(map);
+        }
 
-        httpServletResponse.setHeader(null,null);
-        Map<String,String > map = new HashMap<>();
-        map.put("message","로그아웃 되었습니다.");
-        return ResponseEntity.status(200).body(map);
+
     }
 }
