@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -29,6 +31,9 @@ public class BoardEntity {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "boardEntity")
+    private List<CommentEntity> commentEntities = new ArrayList<>();
 
     @Builder
     public BoardEntity(Long boardId, Long emailId, String author, String title, String content, LocalDateTime createdAt) {

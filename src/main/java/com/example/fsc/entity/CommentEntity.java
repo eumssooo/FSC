@@ -30,6 +30,10 @@ public class CommentEntity {
 
     private Date createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private BoardEntity boardEntity;
+
     /**
      * 2023-09-19
      * 댓글 추가(빋더 생성)
