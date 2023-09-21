@@ -61,12 +61,15 @@ public class CommentService {
                 .build();
 
         Map<String, String> map = new HashMap<>();
-        // db에 Comment 저장
+        // db에 Comment 저장하는 result 변수 생성
         Long result = commentRepository.save(commentEntity).getCommentId();
+        // 레파지토리에 아이디를 찾아서 그 아이디에 Comment를 CommentEntity에 저장 한다.
         Optional<CommentEntity> findId = commentRepository.findById(result);
+        // 만약 아이디가 존재 할 경우 "message", "댓글이 성공적으로 작성되었습니다." 실행과 200 실행
         if (findId.isPresent()) {
             map.put("message", "댓글이 성공적으로 작성되었습니다.");
             return ResponseEntity.status(200).body(map);
+        //그러지 않을 경우 댓글 작성에 실패 하였습니다. 실행
         } else {
             map.put("message", "댓글 작성에 실패 하였습니다.");
             return ResponseEntity.status(200).body(map);
@@ -83,17 +86,17 @@ public class CommentService {
 
 
         Map<String, String> map = new HashMap<>();
-        //1 : comentId로 검색을한다
+            //1 : comentId로 검색을한다
         Optional<CommentEntity> updateId = commentRepository.findById(commentId);
-        //2 : 검색을해서 있으면 if문으로 들어온다
+            //2 : 검색을해서 있으면 if문으로 들어온다
         if (updateId.isPresent()) {
             //3.검색된 댓글을 가져온다
             CommentEntity commentEntity = updateId.get();
-            //가져온거에서 수정된거만 수정한다
+            //4.가져온거에서 수정된거만 수정한다
             commentEntity.setContent(updateCommentDto.getContent());
-            //다시 db에 넣는다
+            //5.다시 db에 넣는다
             commentRepository.save(commentEntity);
-            //넣고나서 리턴을해준다
+            //6.넣고나서 리턴을해준다
             map.put("meassage", "댓글이 성공적으로 수정되었습니다.");
             return ResponseEntity.status(200).body(map);
 
