@@ -35,7 +35,7 @@ public class BoardService {
         return ResponseEntity.status(200).body(boardDTOList);
     }
 
-    public ResponseEntity<BoardDto> findById(Long id){
+    public ResponseEntity<BoardDto> findBoardById(Long id){
         Optional<Board> byId = boardRepository.findById(id);
             Board board = byId.get();
             BoardDto boardDTO = BoardDto.builder()

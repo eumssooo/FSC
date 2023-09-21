@@ -20,21 +20,20 @@ public class BoardController {
 
     //게시물 전체 조회
     @GetMapping( "/posts")
-    public ResponseEntity<List<BoardDto>> findAll(){
+    public ResponseEntity<List<BoardDto>> searchBoardList(){
         return boardService.findAll();
     }
 
     //게시물 상세 조회
     @GetMapping("/posts/{boardId}")
-    public ResponseEntity<BoardDto> findById(@PathVariable Long boardId){
-        return boardService.findById(boardId);
+    public ResponseEntity<BoardDto> searchBoardById(@PathVariable Long boardId){
+        return boardService.findBoardById(boardId);
     }
 
     @GetMapping("/posts/search")
     public ResponseEntity<List<BoardDto>> searchBoardListByEmail (@RequestParam String author){
         return boardService.findBoardListByEmail(author);
     }
-
     @DeleteMapping("/posts/delete")
     public ResponseEntity<Map<String ,String>> deleteBoard(@RequestParam Long boardId){
         return boardService.deleteBoard(boardId);
