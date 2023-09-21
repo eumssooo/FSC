@@ -7,8 +7,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +22,13 @@ import java.util.Map;
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
 
     //회원가입
     public ResponseEntity<Map<String, String>> signup(MemberEntity memberEntity){
@@ -30,12 +36,12 @@ public class MemberService {
         //중복 이메일 확인
         if(isEmailUnique(memberEntity.getEmail())){
             //비밀번호 암호화(sha-256)
-            String encryptedPassword = passwordEncoder.encode(memberEntity.getPassword());
-
+            //String encryptedPassword = passwordEncoder.encode(memberEntity.getPassword());
+            String password = memberEntity.getPassword();
             //회원 정보 저장
             MemberEntity registerMemberEntity = new MemberEntity();
             registerMemberEntity.setEmail(memberEntity.getEmail());
-            registerMemberEntity.setPassword(encryptedPassword);
+            registerMemberEntity.setPassword(password);
 
 
             memberRepository.save(registerMemberEntity);
@@ -75,7 +81,7 @@ public class MemberService {
     public boolean findByEmailAndPassword (String email, String password){
         MemberEntity memberEntity = memberRepository.findByEmail(email);
         if(memberEntity!=null){
-            return passwordEncoder.matches(password,memberEntity.getPassword());
+            return password.equals(memberEntity.getPassword());
         }
         return false;
     }
