@@ -1,7 +1,7 @@
 package com.example.fsc.entity.memberEntity;
 
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
