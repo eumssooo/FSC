@@ -20,20 +20,6 @@ public class SecurityConfiguration {
     private JwtTokenProvider jwtTokenProvider;
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http.headers().frameOptions().sameOrigin()
-//                .and()
-//                //.authorizeRequests()
-//                //.antMatchers("/api/**").permitAll() // 로그인 페이지에 대한 접근 허용
-//                //.anyRequest().authenticated() // 그 외 모든 요청은 인증이 필요
-//                //.and()
-//                .formLogin().disable()
-//                //.loginPage("/login").permitAll().and()
-//                //.logout().logoutUrl("/logout").permitAll().and()
-//                .csrf().disable()
-//                .httpBasic().disable()
-//                .rememberMe().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                //.and().exceptionHandling().authenticationEntryPoint(new FailedPoint());
 
         http
                 .httpBasic().disable()
@@ -58,15 +44,4 @@ public class SecurityConfiguration {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
-//
-//class FailedPoint implements AuthenticationEntryPoint{
-//
-//    @Override
-//    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-//        response.setContentType("application/json");
-//        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-//        response.getWriter().write("{\"message\":\"Do not have permission.\"}");
-//    }
-//
-//
-//}
+

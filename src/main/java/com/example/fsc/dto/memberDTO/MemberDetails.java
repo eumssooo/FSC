@@ -19,37 +19,45 @@ public class MemberDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-        //auth.add(new SimpleGrantedAuthority(authority));
+        auth.add(new SimpleGrantedAuthority(AUTHORITY));
         return auth;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return PASSWORD;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return ID;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return ENABLED;
+    }
+
+    public String getNAME() {
+        return NAME;
+    }
+
+    public void setNAME(String name) {
+        NAME = name;
     }
 }

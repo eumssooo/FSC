@@ -1,5 +1,6 @@
 package com.example.fsc.security;
 
+import com.example.fsc.dto.memberDTO.MemberDetails;
 import com.example.fsc.entity.memberEntity.MemberEntity;
 import com.example.fsc.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         MemberEntity memberEntity = memberRepository.findByEmail(username);
+        MemberDetails memberDetails = new MemberDetails();
+        memberDetails.setID(String.valueOf(memberEntity.getEmailId()));
+        memberDetails.setNAME(memberEntity.getEmail());
+        memberDetails.setAUTHORITY("ROLE_USER");
 
-        return null;
+        return memberDetails;
     }
 }

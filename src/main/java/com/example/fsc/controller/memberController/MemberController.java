@@ -24,23 +24,16 @@ public class MemberController {
     //회원가입
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Map<String, String>> signup(@RequestBody MemberEntity memberEntity){
-
-        if(memberService.isEmailUnique((memberEntity.getEmail()))){
-            return memberService.signup(memberEntity);
-        }else {
-            Map<String, String> result = new HashMap<>();
-            result.put("message", "회원가입에 실패했습니다.");
-            return ResponseEntity.status(200).body(result);
-        }
+    public ResponseEntity<Map<String, String>> signup(@RequestBody Map<String,String> signup){
+        return memberService.signup(signup);
     }
 
     //로그인하기
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<Map<String, String >> login(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse){
+    public ResponseEntity<?> login(@RequestBody Map<String,String> login,HttpServletResponse httpServletResponse){
         //입력정보 서비스에 넘겨주기
-        return memberService.login(memberEntity,httpServletResponse);
+        return memberService.login(login,httpServletResponse);
     }
 
 
