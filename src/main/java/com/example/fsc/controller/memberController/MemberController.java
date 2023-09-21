@@ -3,15 +3,12 @@ package com.example.fsc.controller.memberController;
 
 import com.example.fsc.entity.memberEntity.MemberEntity;
 import com.example.fsc.service.MemberService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +47,14 @@ public class MemberController {
     //로그아웃
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)
-   public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse){
-        return memberService.logout(memberEntity,httpServletResponse);
+   public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse, @RequestHeader("loginUser") String token){
+        return memberService.logout(memberEntity,httpServletResponse,token);
     }
+
+    @GetMapping("/test")
+    @ResponseBody
+    String string(){
+        return "TestTestTest";
+    }
+
 }
