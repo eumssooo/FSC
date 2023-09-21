@@ -1,6 +1,6 @@
 package com.example.fsc.config;
 
-import com.example.fsc.security.JwtAuthenticationFilter;
+//import com.example.fsc.security.JwtAuthenticationFilter;
 import com.example.fsc.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -35,20 +35,14 @@ public class SecurityConfiguration {
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //                //.and().exceptionHandling().authenticationEntryPoint(new FailedPoint());
 
-        http
-                .httpBasic().disable()
+        http.headers().frameOptions().sameOrigin()
+                .and()
+                .formLogin().disable()
                 .csrf().disable()
-                .cors().and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/login", "/api/signup").permitAll()
-                .anyRequest().hasRole("USER")
-                .and()
-                .exceptionHandling()
-                .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .httpBasic().disable()
+                .rememberMe().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.build();
 
         return  http.build();
     }

@@ -30,32 +30,32 @@ public class JwtTokenProvider {
         return jwt;
     }
 
-    public boolean validate(String token){
+//    public boolean validate(String token){
+//
+//        try {
+//            Jws<Claims> claimsJws = Jwts.parser().parseClaimsJws(token);
+//            return !claimsJws.getBody().getExpiration().before(new Date());
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
-        try {
-            Jws<Claims> claimsJws = Jwts.parser().parseClaimsJws(token);
-            return !claimsJws.getBody().getExpiration().before(new Date());
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
+//    public String resolveToken(HttpServletRequest request){
+//        return request.getHeader("loginUser");
+//    }
 
-    public String resolveToken(HttpServletRequest request){
-        return request.getHeader("loginUser");
-    }
-
-    public Authentication getAutnetication(String token) {
+//    public Authentication getAutnetication(String token) {
 //        Claims claims = parseClaims(token);
 //        UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject());
-        return  null;
-    }
+//        return  null;
+//    }
 
-    private Claims parseClaims(String token) {
-        try{
-            return Jwts.parser().parseClaimsJws(token).getBody();
-        }catch (ExpiredJwtException e){
-            return e.getClaims();
-        }
-    }
+//    private Claims parseClaims(String token) {
+//        try{
+//            return Jwts.parser().parseClaimsJws(token).getBody();
+//        }catch (ExpiredJwtException e){
+//            return e.getClaims();
+//        }
+//    }
 }
