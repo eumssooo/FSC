@@ -20,7 +20,7 @@ public class BoardController {
 
     //게시물 전체 조회
     @GetMapping( "/posts")
-    public ResponseEntity<List<BoardDto>> searchBoardList(){
+    public ResponseEntity<List<BoardDto>> viewBoardList(){
         return boardService.findAll();
     }
 
