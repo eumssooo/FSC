@@ -70,9 +70,10 @@ public class MemberService {
             return ResponseEntity.status(200).body(map);
         } else {
             //아닐때
-            System.out.println("로그인실패");
+            Map<String, String> map = new HashMap<>();
+            map.put("message", "아이디 또는 비밀번호가 틀립니다.");
+            return ResponseEntity.status(200).body(map);
         }
-        return null;
     }
 
     public boolean findByEmailAndPassword(String email, String password) {
@@ -97,8 +98,6 @@ public class MemberService {
             System.out.println("email : " + email);
             Map<String, String> loginInfo = new HashMap<>();
             loginInfo.put("emailId", String.valueOf(emailId));
-            loginInfo.put("email", email);
-            loginInfo.put("emailId", email);
             loginInfo.put("email", email);
             return loginInfo;
         } else {
