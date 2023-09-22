@@ -1,4 +1,4 @@
-package com.example.fsc.controller.memberController;
+package com.example.fsc.controller;
 
 
 import com.example.fsc.entity.memberEntity.MemberEntity;
@@ -40,13 +40,13 @@ public class MemberController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Map<String, String >> login(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse){
-        //입력정보 서비스에 넘겨주기
         return memberService.login(memberEntity,httpServletResponse);
     }
 
 
     //로그아웃
     @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
         public ResponseEntity<Map<String, String >> logout(@RequestBody MemberEntity memberEntity, HttpServletResponse httpServletResponse, @RequestHeader(value = "loginUser", required = false) String token){
             return memberService.logout(memberEntity,httpServletResponse,token);
     }
