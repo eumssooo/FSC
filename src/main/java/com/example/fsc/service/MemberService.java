@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,29 +25,23 @@ import java.util.Optional;
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
-    //    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder(){
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//    }
 
     //회원가입
     public ResponseEntity<Map<String, String>> signup(MemberEntity memberEntity) {
         Map<String, String> result = new HashMap<>();
         //중복 이메일 확인
         if (isEmailUnique(memberEntity.getEmail())) {
-            //비밀번호 암호화(sha-256)
-            //String encryptedPassword = passwordEncoder.encode(memberEntity.getPassword());
-            String password = memberEntity.getPassword();
+            //비밀번호 암호화
+            String encryptedPassword = passwordEncoder.encode(memberEntity.getPassword());
+
             //회원 정보 저장
             MemberEntity registerMemberEntity = new MemberEntity();
             registerMemberEntity.setEmail(memberEntity.getEmail());
-            registerMemberEntity.setPassword(password);
-
-
+            registerMemberEntity.setPassword(encryptedPassword);
             memberRepository.save(registerMemberEntity);
+
             result.put("message", "회원가입이 완료되었습니다.");
             return ResponseEntity.status(200).body(result);
         } else {
@@ -80,11 +76,9 @@ public class MemberService {
     }
 
     public boolean findByEmailAndPassword(String email, String password) {
-        MemberEntity memberEntity = memberRepository.findByEmail(email);
-        if (memberEntity != null) {
-            return password.equals(memberEntity.getPassword());
-        }
-        return false;
+        String entityPassword = memberRepository.findByEmail(email).getPassword();
+        return passwordEncoder.matches(password,entityPassword);
+
     }
 
     public MemberEntity setLoginMemberEntity(String email) {
@@ -115,8 +109,6 @@ public class MemberService {
     public ResponseEntity<Map<String, String>> logout(MemberEntity memberEntity, HttpServletResponse httpServletResponse, String token) {
         Optional<String > tokenOptional = Optional.ofNullable(token);
         if(tokenOptional.isPresent()){
-//            String exToken = tokenOptional.get();
-//            System.out.println(exToken);
             httpServletResponse.setHeader(null,null);
             Map<String,String > map = new HashMap<>();
             map.put("message","로그아웃 되었습니다.");
