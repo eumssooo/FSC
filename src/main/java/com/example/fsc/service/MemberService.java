@@ -104,8 +104,7 @@ public class MemberService {
             Map<String, String> loginInfo = new HashMap<>();
             loginInfo.put("emailId", String.valueOf(emailId));
             loginInfo.put("email", email);
-            loginInfo.put("emailId", email);
-            loginInfo.put("email", email);
+
             return loginInfo;
         } else {
             return null;

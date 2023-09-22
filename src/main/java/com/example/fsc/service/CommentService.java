@@ -6,6 +6,7 @@ import com.example.fsc.entity.BoardEntity;
 import com.example.fsc.entity.CommentEntity;
 import com.example.fsc.repository.BoardRepository;
 import com.example.fsc.repository.CommentRepository;
+import com.example.fsc.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.*;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     public ResponseEntity<List<CommentViewDto>> postComment(Long board_id) {
         List<CommentEntity> commentEntityList = commentRepository.findByBoardEntity_BoardId(board_id);
