@@ -32,7 +32,7 @@ public class BoardEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "boardEntity")
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntities = new ArrayList<>();
 
     @Builder
