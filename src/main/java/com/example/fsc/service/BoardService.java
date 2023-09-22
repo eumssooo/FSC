@@ -19,7 +19,6 @@ import static org.springframework.http.RequestEntity.put;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
 
     public ResponseEntity<List<BoardDto>> findAll() {
         // entity -> dto
@@ -152,13 +151,14 @@ public class BoardService {
 
         // 토큰 값 꺼내기
         String userEmail = (String) memberService.showToken(token).get("email");
+        Long userEmailId = Long.valueOf(memberService.showToken(token).get("emailId"));
 
         // dto -> entity 변환
         BoardEntity boardEntity = BoardEntity.builder()
                 .author(userEmail)
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                .emailId(memberRepository.findByEmail(userEmail).getEmailId())
+                .emailId(userEmailId)
                 .createdAt(LocalDateTime.now())
                 .build();
 
